@@ -1,0 +1,57 @@
+{
+	"ImportPath": "github.com/Aorioli/procedural",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v74",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/go-kit/kit/endpoint",
+			"Rev": "db631d00e59701187cccc1790f1b95cdb494fdd0"
+		},
+		{
+			"ImportPath": "github.com/go-kit/kit/log",
+			"Rev": "db631d00e59701187cccc1790f1b95cdb494fdd0"
+		},
+		{
+			"ImportPath": "github.com/go-kit/kit/transport/http",
+			"Rev": "db631d00e59701187cccc1790f1b95cdb494fdd0"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Rev": "1c83b3eabd45b6d76072b66b746c20815fb2872d"
+		},
+		{
+			"ImportPath": "github.com/gorilla/handlers",
+			"Comment": "v1.1-10-g801d6e3",
+			"Rev": "801d6e3b008914ee888c9ab9b1b379b9a56fbf44"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Rev": "ad4d7a5882b961e07e2626045eb995c022ac6664"
+		},
+		{
+			"ImportPath": "github.com/pkg/errors",
+			"Comment": "v0.4.0",
+			"Rev": "d814416a46cbb066b728cfff58d30a986bc9ddbe"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "7553b97266dcbbf78298bd1a2b12d9c9aaae5f40"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context/ctxhttp",
+			"Rev": "7553b97266dcbbf78298bd1a2b12d9c9aaae5f40"
+		},
+		{
+			"ImportPath": "gopkg.in/logfmt.v0",
+			"Rev": "c50dc9aa845e681529d8e49d3dc11ec0195aacac"
+		},
+		{
+			"ImportPath": "gopkg.in/stack.v1",
+			"Comment": "v1.4.0",
+			"Rev": "0585967eab0016c8e4e2d55ac20585b469574cec"
+		}
+	]
+}
