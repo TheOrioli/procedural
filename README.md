@@ -1,4 +1,4 @@
-# Procedural generation-as-a-service
+# Procedural generation as a service
 
 ## Maze
 
