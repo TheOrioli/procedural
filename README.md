@@ -57,3 +57,32 @@
     ![](http://i.imgur.com/l6c7JFz.png)
 
   * Example: `/maze/generate/backtrack/image?w=10&h=10&seed=12345`
+
+## Dungeon ([go-dungeon](https://github.com/Meshiest/go-dungeon))
+
+### GET `/dungeon`
+  * Returns a short intro message
+
+### GET `/dungeon/generate`
+  * Parameters:  
+
+  | Name  | Description          | Type   | Restrictions  | Default Value | Optional |
+  | ----- | -------------------- | ------ | ------------- | ------------- | -------- |
+  | size  | Dimensions           | Number | 3 <= w <= 500 | 5             | Yes      |
+  | rooms | Attempted Room Count | Number | 1 <= h <= 500 | 1             | Yes      |
+  | seed  | Seed                 | Number | int64 bounds  | Unix Time     | Yes      |
+
+  * Output (JSON):
+  
+        {
+          "size": Number,
+          "dungeon": [
+            [0,0,0,0,0],
+            [0,1,1,1,0],
+            [0,1,1,1,0],
+            [0,1,1,1,0],
+            [0,0,0,0,0]
+          ]
+        }
+
+  * Example: `/dungeon/generate?size=10&rooms=50&seed=1`
