@@ -33,7 +33,7 @@ func decodeRequest(sizeLimit int) func(r *http.Request) (interface{}, error) {
 		s = q.Get("size")
 		if s != "" {
 			d, err := strconv.Atoi(s)
-			if err != nil || d <= 3 || d > sizeLimit {
+			if err != nil || d < 3 || d > sizeLimit {
 				return endpoints.Err(errors.New("Invalid size value"), http.StatusBadRequest), nil
 			}
 			request.Size = d
@@ -42,7 +42,7 @@ func decodeRequest(sizeLimit int) func(r *http.Request) (interface{}, error) {
 		s = q.Get("rooms")
 		if s != "" {
 			d, err := strconv.Atoi(s)
-			if err != nil || d <= 1 || d > 500 {
+			if err != nil || d < 1 || d > 500 {
 				return endpoints.Err(errors.New("Invalid room number value"), http.StatusBadRequest), nil
 			}
 			request.Rooms = d
