@@ -26,7 +26,7 @@ func HTTP(svc maze.Service, ctx context.Context) []endpoints.Route {
 				ctx,
 				makeGenerateEndpoint(svc, maze.Backtrack()),
 				decodeRequest(500),
-				endpoints.EncodeResponse,
+				encodeJSONResponse,
 			),
 		},
 		{

@@ -3,10 +3,10 @@ package maze
 import (
 	"encoding/json"
 	"errors"
-	"image/png"
 	"net/http"
 	"strconv"
 
+	"github.com/Aorioli/procedural/concerns/point"
 	"github.com/Aorioli/procedural/endpoints"
 	"github.com/Aorioli/procedural/services/maze"
 )
@@ -50,23 +50,58 @@ func decodeRequest(sizeLimit int) func(r *http.Request) (interface{}, error) {
 	}
 }
 
-func encodeImageResponse(w http.ResponseWriter, response interface{}) error {
+type gridPoint struct {
+	P point.Point   `json:"point"`
+	N []point.Point `json:"next"`
+}
+
+type generateResponse struct {
+	Width    int         `json:"width"`
+	Height   int         `json:"height"`
+	Entrance point.Point `json:"entrance"`
+	Exit     point.Point `json:"exit"`
+	Grid     []gridPoint `json:"grid"`
+}
+
+func encodeJSONResponse(w http.ResponseWriter, response interface{}) error {
+	w.Header().Add(endpoints.ContentType, endpoints.ApplicationJSON)
 	switch v := response.(type) {
 	case endpoints.Error:
-		w.Header().Add(endpoints.ContentType, "application/json")
 		w.WriteHeader(v.Status)
 		return json.NewEncoder(w).Encode(v)
 	case error:
-		w.Header().Add(endpoints.ContentType, "application/json")
 		w.WriteHeader(http.StatusInternalServerError)
 		return json.NewEncoder(w).Encode(v)
 	}
+
 	v, ok := response.(maze.Maze)
 	if !ok {
 		w.WriteHeader(http.StatusInternalServerError)
 		return nil
 	}
 
-	w.Header().Add(endpoints.ContentType, "image/png")
-	return png.Encode(w, v.Image(20))
+	resp := generateResponse{
+		Width:    v.Width,
+		Height:   v.Height,
+		Entrance: v.Entrance,
+		Exit:     v.Exit,
+	}
+
+	g := make([]gridPoint, 0, len(v.Grid))
+	for p, c := range v.Grid {
+		gp := gridPoint{
+			P: p,
+		}
+
+		n := make([]point.Point, len(c.Next))
+		for i := 0; i < len(c.Next); i++ {
+			n[i] = p.AddDirection(c.Next[i])
+		}
+
+		gp.N = n
+		g = append(g, gp)
+	}
+	resp.Grid = g
+
+	return json.NewEncoder(w).Encode(resp)
 }

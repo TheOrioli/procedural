@@ -1,20 +1,9 @@
 package maze
 
-type direction uint8
-
-const (
-	north direction = iota + 1
-	east
-	south
-	west
+import (
+	"github.com/Aorioli/procedural/concerns/direction"
+	"github.com/Aorioli/procedural/concerns/point"
 )
-
-var opposite = map[direction]direction{
-	north: south,
-	east:  west,
-	west:  east,
-	south: north,
-}
 
 // Chooser interface is the interface that the cell picking algorithm should implement
 type Chooser interface {
@@ -29,10 +18,18 @@ type Randomizer interface {
 }
 
 func generate(width, height int, r Randomizer, chooser Chooser) Maze {
-	directions := []direction{north, east, south, west}
+	directions := []direction.Direction{
+		direction.North,
+		direction.East,
+		direction.South,
+		direction.West,
+	}
+
+	minBounds := point.Point{X: 0, Y: 0}
+	maxBounds := point.Point{X: width - 1, Y: height - 1}
 
 	x, y := (r.Int() % width), (r.Int() % height)
-	entrance := point{
+	entrance := point.Point{
 		X: x,
 		Y: y,
 	}
@@ -43,12 +40,12 @@ func generate(width, height int, r Randomizer, chooser Chooser) Maze {
 		Entrance: entrance,
 	}
 
-	live := make([]point, 0, (width*height)/2)
+	live := make([]point.Point, 0, (width*height)/2)
 	live = append(live, entrance)
 
-	visited := make(map[point]struct{}, (width * height))
-	grid := make(map[point]cell, (width * height))
-	var exits []point
+	visited := make(map[point.Point]struct{}, (width * height))
+	grid := make(map[point.Point]Cell, (width * height))
+	var exits []point.Point
 
 	for len(live) != 0 {
 		i := chooser.Choose(len(live))
@@ -60,7 +57,7 @@ func generate(width, height int, r Randomizer, chooser Chooser) Maze {
 			d := directions[i]
 			n := p.AddDirection(d)
 
-			if !n.inBounds(width-1, height-1) {
+			if !n.Inside(minBounds, maxBounds) {
 				continue
 			}
 
@@ -72,15 +69,15 @@ func generate(width, height int, r Randomizer, chooser Chooser) Maze {
 
 			c, ok := grid[p]
 			if !ok {
-				c = cell{
-					Next: []direction{},
+				c = Cell{
+					Next: []direction.Direction{},
 				}
 			}
 			c.Next = append(c.Next, d)
 			grid[p] = c
 
-			grid[n] = cell{
-				Next: []direction{opposite[d]},
+			grid[n] = Cell{
+				Next: []direction.Direction{direction.Opposite(d)},
 			}
 
 			live = append(live, n)
