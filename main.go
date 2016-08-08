@@ -9,9 +9,9 @@ import (
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 
+	dungeonEndpoints "github.com/Aorioli/procedural/endpoints/dungeon"
 	mazeEndpoints "github.com/Aorioli/procedural/endpoints/maze"
 	mazeService "github.com/Aorioli/procedural/services/maze"
-	dungeonEndpoints "github.com/Aorioli/procedural/endpoints/dungeon"
 )
 
 func main() {

@@ -52,8 +52,8 @@ func decodeRequest(sizeLimit int) func(r *http.Request) (interface{}, error) {
 }
 
 type generateResponse struct {
-	Size    int         `json:"size"`
-	Dungeon [][]int     `json:"dungeon"`
+	Size    int     `json:"size"`
+	Dungeon [][]int `json:"dungeon"`
 }
 
 func encodeJSONResponse(w http.ResponseWriter, response interface{}) error {
@@ -74,8 +74,8 @@ func encodeJSONResponse(w http.ResponseWriter, response interface{}) error {
 	}
 
 	resp := generateResponse{
-		Size:     v.Size,
-		Dungeon:  v.Grid,
+		Size:    v.Size,
+		Dungeon: v.Grid,
 	}
 
 	return json.NewEncoder(w).Encode(resp)
