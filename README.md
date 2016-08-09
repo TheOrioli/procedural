@@ -70,7 +70,7 @@
   | ----- | -------------------- | ------ | ------------- | ------------- | -------- |
   | size  | Dimensions           | Number | 3 <= w <= 500 | 5             | Yes      |
   | rooms | Attempted Room Count | Number | 1 <= h <= 500 | 1             | Yes      |
-  | seed  | Seed                 | Number | int64 bounds  | Unix Time     | Yes      |
+  | seed  | Seed                 | Number | int64 bounds  | 0             | Yes      |
 
   * Output (JSON):
   

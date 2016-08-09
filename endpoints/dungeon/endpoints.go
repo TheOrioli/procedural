@@ -37,8 +37,6 @@ func makeGenerateEndpoint() endpoint.Endpoint {
 			grid[i] = make([]int, req.Size)
 		}
 
-		rand.Seed(req.Seed)
-
 		dngn := &dungeon.Dungeon{
 			Size:     req.Size,
 			NumRooms: req.Rooms,
@@ -49,6 +47,7 @@ func makeGenerateEndpoint() endpoint.Endpoint {
 			Rooms:    []dungeon.Rectangle{},
 			Regions:  []int{},
 			Bounds:   dungeon.Rectangle{X: 1, Y: 1, Width: req.Size - 2, Height: req.Size - 2},
+			Rand:     rand.New(rand.NewSource(req.Seed)),
 		}
 		dngn.Generate()
 

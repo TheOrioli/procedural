@@ -5,7 +5,6 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/Aorioli/procedural/endpoints"
 	"github.com/meshiest/go-dungeon/dungeon"
@@ -16,7 +15,7 @@ func decodeRequest(sizeLimit int) func(r *http.Request) (interface{}, error) {
 		request := &generateRequest{
 			Size:  5,
 			Rooms: 1,
-			Seed:  time.Now().Unix(),
+			Seed:  0,
 		}
 
 		q := r.URL.Query()
