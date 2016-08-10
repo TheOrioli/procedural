@@ -3,12 +3,13 @@ package dungeon
 import (
 	"net/http"
 
+	"math/rand"
+
 	"github.com/Aorioli/procedural/endpoints"
 	"github.com/go-kit/kit/endpoint"
 	"github.com/meshiest/go-dungeon/dungeon"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
-	"math/rand"
 )
 
 // generateRequest struct
