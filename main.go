@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 
+	dungeonEndpoints "github.com/Aorioli/procedural/endpoints/dungeon"
 	mazeEndpoints "github.com/Aorioli/procedural/endpoints/maze"
 	mazeService "github.com/Aorioli/procedural/services/maze"
 )
@@ -28,6 +29,12 @@ func main() {
 	for _, route := range mazeEndpoints.HTTP(mazeSvc, root) {
 		log.Println("/maze" + route.Path)
 		mazeRouter.Handle(route.Path, route.Handler).Methods(route.Method)
+	}
+
+	dungeonRouter := router.PathPrefix("/dungeon").Subrouter()
+	for _, route := range dungeonEndpoints.HTTP(root) {
+		log.Println("/dungeon" + route.Path)
+		dungeonRouter.Handle(route.Path, route.Handler).Methods(route.Method)
 	}
 
 	log.Fatalln(http.ListenAndServe(
