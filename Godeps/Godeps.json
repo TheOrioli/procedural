@@ -32,6 +32,10 @@
 			"Rev": "ad4d7a5882b961e07e2626045eb995c022ac6664"
 		},
 		{
+			"ImportPath": "github.com/meshiest/go-dungeon/dungeon",
+			"Rev": "1d1d1e7596b886ea415bd8e2ac16ea8ccf305cf3"
+		},
+		{
 			"ImportPath": "github.com/pkg/errors",
 			"Comment": "v0.4.0",
 			"Rev": "d814416a46cbb066b728cfff58d30a986bc9ddbe"
