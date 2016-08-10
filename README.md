@@ -15,7 +15,7 @@
   | seed | Seed             | Number | int64 bounds  | 0             | Yes      |
 
   * Output (JSON):
-  
+
         {
           "width": Number,
           "height": Number,
@@ -68,12 +68,12 @@
 
   | Name  | Description          | Type   | Restrictions  | Default Value | Optional |
   | ----- | -------------------- | ------ | ------------- | ------------- | -------- |
-  | size  | Dimensions           | Number | 3 <= w <= 500 | 5             | Yes      |
-  | rooms | Attempted Room Count | Number | 1 <= h <= 500 | 1             | Yes      |
+  | size  | Dimensions           | Number | 3 <= s <= 500 | 5             | Yes      |
+  | rooms | Attempted Room Count | Number | 1 <= r <= 500 | 1             | Yes      |
   | seed  | Seed                 | Number | int64 bounds  | 0             | Yes      |
 
   * Output (JSON):
-  
+
         {
           "size": Number,
           "dungeon": [
@@ -86,3 +86,18 @@
         }
 
   * Example: `/dungeon/generate?size=10&rooms=50&seed=1`
+
+### GET `/dungeon/generate/image`
+  * Parameters:  
+
+  | Name  | Description          | Type   | Restrictions  | Default Value | Optional |
+  | ----- | -------------------- | ------ | ------------- | ------------- | -------- |
+  | size  | Dimensions           | Number | 3 <= s <= 100 | 5             | Yes      |
+  | rooms | Attempted Room Count | Number | 1 <= r <= 500 | 1             | Yes      |
+  | seed  | Seed                 | Number | int64 bounds  | 0             | Yes      |
+
+  * Output: PNG
+  * Example Output:
+    ![](http://i.imgur.com/jQYpKhr.png)
+
+  * Example: `/dungeon/generate/image?size=20&rooms=3&seed=1`

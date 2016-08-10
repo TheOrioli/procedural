@@ -28,5 +28,15 @@ func HTTP(ctx context.Context) []endpoints.Route {
 				encodeJSONResponse,
 			),
 		},
+		{
+			Path:   "/generate/image",
+			Method: http.MethodGet,
+			Handler: httptransport.NewServer(
+				ctx,
+				makeGenerateEndpoint(),
+				decodeRequest(100),
+				encodeImageResponse,
+			),
+		},
 	}
 }
