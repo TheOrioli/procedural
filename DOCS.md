@@ -161,6 +161,53 @@ If you want to share a maze, it's just a copy-paste away.
 
 - Response 200 (image/png)
 
+## Group Dungeon
+
+A Dungeon is a collection of rooms connected by hallways.
+
+## Message [GET /dungeon]
+
+Return a simple sub-service description, with a message and the current version.
+
+- Response 200 (application/json)
+
+  - Attributes (Intro Object)
+
+      - message: `Dungeon-as-a-service`
+
+## Generate [/dungeon/generate{?size,rooms,seed}]
+
+Generates a new dungeon.
+
+## JSON [GET]
+
+- Parameters
+  - size: `20` (optional, number)
+      - Default: 5
+  - rooms: `3` (optional, number)
+      - Default: 10
+  - seed: `1` (optional, number)
+      - Default: 0
+
+- Request (application/json)
+
+- Response 200 (application/json)
+  - Attributes (Dungeon Object)
+
+## Image [GET /dungeon/generate/image{?size,rooms,seed}]
+
+- Parameters
+  - size: `20` (optional, number)
+      - Default: 5
+  - rooms: `3` (optional, number)
+      - Default: 10
+  - seed: `1` (optional, number)
+      - Default: 0
+
+- Request (application/json)
+
+- Response 200 (image/png)
+
 # Data Structures
 
 ## Intro Object (object)
@@ -193,5 +240,12 @@ If you want to share a maze, it's just a copy-paste away.
 - entrance (required, Point Object) - Maze entrance coordinates
 - exit (required, Point Object) - Maze exit coordinates
 - grid (required, array) - Grid of all maze points, arranged into a graph
+
+  - (Grid Point Object)
+
+## Dungeon Object (object)
+- width (required, number) - Dungeon width
+- height (required, number) - Dungeon height
+- grid (required, array) - Grid of all dungeon points, arranged into a graph
 
   - (Grid Point Object)
