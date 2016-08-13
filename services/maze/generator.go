@@ -18,6 +18,16 @@ type Randomizer interface {
 }
 
 func generate(width, height int, r Randomizer, chooser Chooser) Maze {
+	if width == 1 && height == 1 {
+		return Maze{
+			Width:  1,
+			Height: 1,
+			Grid: map[point.Point]Cell{
+				point.Point{}: Cell{},
+			},
+		}
+	}
+
 	directions := []direction.Direction{
 		direction.North,
 		direction.East,

@@ -35,14 +35,14 @@ func encodeImageResponse(w http.ResponseWriter, response interface{}) error {
 }
 
 func drawCell(c maze.Cell, min, max point.Point, im *image.NRGBA, col color.Color) {
-	for x := min.X; x <= max.X; x++ {
-		for y := min.Y; y <= max.Y; y++ {
+	for x := min.X; x < max.X; x++ {
+		for y := min.Y; y < max.Y; y++ {
 			im.Set(x, y, col)
 			if x == min.X && !c.Has(direction.West) {
 				im.Set(x, y, color.Black)
-			} else if x == max.X && !c.Has(direction.East) {
+			} else if x == (max.X-1) && !c.Has(direction.East) {
 				im.Set(x, y, color.Black)
-			} else if y == max.Y && !c.Has(direction.South) {
+			} else if y == (max.Y-1) && !c.Has(direction.South) {
 				im.Set(x, y, color.Black)
 			} else if y == min.Y && !c.Has(direction.North) {
 				im.Set(x, y, color.Black)
@@ -52,7 +52,7 @@ func drawCell(c maze.Cell, min, max point.Point, im *image.NRGBA, col color.Colo
 }
 
 func img(m maze.Maze, size int) image.Image {
-	im := image.NewNRGBA(image.Rect(0, 0, m.Width*size+1, m.Height*size+1))
+	im := image.NewNRGBA(image.Rect(0, 0, m.Width*size, m.Height*size))
 	for y := 0; y <= m.Height; y++ {
 		for x := 0; x <= m.Width; x++ {
 			p := point.Point{X: x, Y: y}
