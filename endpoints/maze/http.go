@@ -64,14 +64,11 @@ type generateResponse struct {
 }
 
 func encodeJSONResponse(w http.ResponseWriter, response interface{}) error {
-	w.Header().Add(endpoints.ContentType, endpoints.ApplicationJSON)
-	switch v := response.(type) {
-	case endpoints.Error:
-		w.WriteHeader(v.Status)
-		return json.NewEncoder(w).Encode(v)
-	case error:
-		w.WriteHeader(http.StatusInternalServerError)
-		return json.NewEncoder(w).Encode(v)
+	errored, err := endpoints.CheckError(w, response)
+	if err != nil {
+		return err
+	} else if errored {
+		return nil
 	}
 
 	v, ok := response.(maze.Maze)
@@ -103,5 +100,6 @@ func encodeJSONResponse(w http.ResponseWriter, response interface{}) error {
 	}
 	resp.Grid = g
 
+	w.Header().Add(endpoints.ContentType, endpoints.ApplicationJSON)
 	return json.NewEncoder(w).Encode(resp)
 }

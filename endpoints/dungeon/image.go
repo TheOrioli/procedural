@@ -1,7 +1,6 @@
 package dungeon
 
 import (
-	"encoding/json"
 	"image"
 	"image/color"
 	"image/png"
@@ -13,15 +12,11 @@ import (
 )
 
 func encodeImageResponse(w http.ResponseWriter, response interface{}) error {
-	switch v := response.(type) {
-	case endpoints.Error:
-		w.Header().Add(endpoints.ContentType, endpoints.ApplicationJSON)
-		w.WriteHeader(v.Status)
-		return json.NewEncoder(w).Encode(v)
-	case error:
-		w.Header().Add(endpoints.ContentType, endpoints.ApplicationJSON)
-		w.WriteHeader(http.StatusInternalServerError)
-		return json.NewEncoder(w).Encode(v)
+	errored, err := endpoints.CheckError(w, response)
+	if err != nil {
+		return err
+	} else if errored {
+		return nil
 	}
 
 	v, ok := response.(dungeon.Dungeon)

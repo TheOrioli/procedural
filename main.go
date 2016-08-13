@@ -11,6 +11,7 @@ import (
 
 	dungeonEndpoints "github.com/Aorioli/procedural/endpoints/dungeon"
 	mazeEndpoints "github.com/Aorioli/procedural/endpoints/maze"
+	musicEndpoints "github.com/Aorioli/procedural/endpoints/music"
 	mazeService "github.com/Aorioli/procedural/services/maze"
 )
 
@@ -35,6 +36,12 @@ func main() {
 	for _, route := range dungeonEndpoints.HTTP(root) {
 		log.Println("/dungeon" + route.Path)
 		dungeonRouter.Handle(route.Path, route.Handler).Methods(route.Method)
+	}
+
+	musicRouter := router.PathPrefix("/music").Subrouter()
+	for _, route := range musicEndpoints.HTTP(root) {
+		log.Println("/music" + route.Path)
+		musicRouter.Handle(route.Path, route.Handler).Methods(route.Method)
 	}
 
 	log.Fatalln(http.ListenAndServe(
