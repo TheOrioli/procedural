@@ -208,6 +208,210 @@ Generates a new dungeon.
 
 - Response 200 (image/png)
 
+## Group Music
+
+It's a bit hard to define `Music` so let's just call it a semi-random collection of air pressure changes that sound like something,
+
+## Message [GET /music]
+
+Return a simple sub-service description, with a message and the current version.
+
+- Response 200 (application/json)
+
+  - Attributes (Intro Object)
+
+      - message: `Music-as-a-service`
+
+## Generate [/music/generate{?size,seed,smoke_on_the_water}]
+
+## JSON [GET]
+The `duration` of a note is the musical notation duration of a note, e.g. full, half, quarter, eight.
+
+The `start_at` attribute of a note describes at which point in the song should the note start playing, and it is equal to the sum of the duration of notes that came before it.
+
+By using the `tempo`, the `duration` and the `start_at` attribute, the correct length and position of a note in seconds can be determined.
+
+- Parameters
+  - size: `64` (optional, number) - a modifier parameter, influences the length of the finished song by a little bit
+      - Default: 10
+  - seed: `5` (optional, number)
+      - Default: 0
+  - smoke_on_the_water: true (optional, boolean) - just a little easter egg, useful for checking out the sound generation
+      - Default: false
+
+- Response 200 (application/json)
+  - Attributes (Song Object)
+      - scale (array)
+          - 2 (number)
+          - 1 (number)
+          - 2 (number)
+          - 2 (number)
+          - 1 (number)
+          - 2 (number)
+          - 2 (number)
+      - key (Note Object)
+          - note: G (string)
+          - octave: 2 (number)
+          - frequency: 97.9988589954373 (number)
+      - tempo: 0.75 (number)
+      - song (array)
+          - (Song Note Object)
+              - note: D (string)
+              - octave: 2 (number)
+              - frequency: 73.41619197935186 (number)
+              - duration: 0.75 (number)
+              - star_at: 0 (number)
+          - (Song Note Object)
+              - note: G (string)
+              - octave: 2 (number)
+              - frequency: 97.9988589954373 (number)
+              - duration: 0.75 (number)
+              - star_at: 0 (number)
+          - (Song Note Object)
+              - note: F (string)
+              - octave: 2 (number)
+              - frequency: 87.30705785825096 (number)
+              - duration: 0.75 (number)
+              - start_at: 0.75 (number)
+          - (Song Note Object)
+              - note: A (string),
+              - octave: 2 (number)
+              - frequency: 116.54094037952244 (number)
+              - duration: 0.75 (number)
+              - start_at: 0.75 (number)
+          - (Song Note Object)
+              - note: G (string)
+              - octave: 2 (number)
+              - frequency: 97.9988589954373 (number)
+              - duration: 1 (number)
+              - start_at: 1.5 (number)
+          - (Song Note Object)
+              - note: C (string)
+              - octave: 2 (number)
+              - frequency: 65.40639132514963 (number)
+              - duration: 1 (number)
+              - start_at: 1.5 (number)
+          - (Song Note Object)
+              - note: D (string)
+              - octave: 2 (number)
+              - frequency: 73.41619197935186 (number)
+              - duration: 0.75 (number)
+              - start_at: 2.5 (number)
+          - (Song Note Object)
+              - note: G (string)
+              - octave: 2 (number)
+              - frequency: 97.9988589954373 (number)
+              - duration: 0.75 (number)
+              - start_at: 2.5 (number)
+          - (Song Note Object)
+              - note: F (string)
+              - octave: 2 (number)
+              - frequency: 87.30705785825096 (number)
+              - duration: 0.75 (number)
+              - start_at: 3.25 (number)
+          - (Song Note Object)
+              - note: A (string),
+              - octave: 2 (number)
+              - frequency: 116.54094037952244 (number)
+              - duration: 0.75 (number)
+              - start_at: 3.25 (number)
+          - (Song Note Object)
+              - note: G (string),
+              - octave: 2 (number)
+              - frequency: 103.82617439498627 (number)
+              - duration: 0.5 (number)
+              - star_at: 4 (number)
+          - (Song Note Object)
+              - note: C (string),
+              - octave: 2 (number)
+              - frequency: 69.295657744218 (number)
+              - duration: 0.5 (number)
+              - star_at: 4 (number)
+          - (Song Note Object)
+              - note: G (string)
+              - octave: 2 (number)
+              - frequency: 97.9988589954373 (number)
+              - duration: 1 (number)
+              - start_at: 4.5 (number)
+          - (Song Note Object)
+              - note: C (string)
+              - octave: 2 (number)
+              - frequency: 65.40639132514963 (number)
+              - duration: 1 (number)
+              - start_at: 4.5 (number)
+          - (Song Note Object)
+              - note: D (string)
+              - octave: 2 (number)
+              - frequency: 73.41619197935186 (number)
+              - duration: 0.75 (number)
+              - start_at: 5.5 (number)
+          - (Song Note Object)
+              - note: G (string)
+              - octave: 2 (number)
+              - frequency: 97.9988589954373 (number)
+              - duration: 0.75 (number)
+              - start_at: 5.5 (number)
+          - (Song Note Object)
+              - note: F (string)
+              - octave: 2 (number)
+              - frequency: 87.30705785825096 (number)
+              - duration: 0.75 (number)
+              - start_at: 6.25 (number)
+          - (Song Note Object)
+              - note: A (string),
+              - octave: 2 (number)
+              - frequency: 116.54094037952244 (number)
+              - duration: 0.75 (number)
+              - start_at: 6.25 (number)
+          - (Song Note Object)
+              - note: G (string)
+              - octave: 2 (number)
+              - frequency: 97.9988589954373 (number)
+              - duration: 1 (number)
+              - star_at: 7 (number)
+          - (Song Note Object)
+              - note: C (string)
+              - octave: 2 (number)
+              - frequency: 65.40639132514963 (number)
+              - duration: 1 (number)
+              - star_at: 7 (number)
+          - (Song Note Object)
+              - note: F (string)
+              - octave: 2 (number)
+              - frequency: 87.30705785825096 (number)
+              - duration: 0.75 (number)
+              - star_at: 8 (number)
+          - (Song Note Object)
+              - note: A (string),
+              - octave: 2 (number)
+              - frequency: 116.54094037952244 (number)
+              - duration: 0.75 (number)
+              - star_at: 8 (number)
+          - (Song Note Object)
+              - note: D (string)
+              - octave: 2 (number)
+              - frequency: 73.41619197935186 (number)
+              - duration: 2 (number)
+              - start_at: 8.75 (number)
+          - (Song Note Object)
+              - note: G (string)
+              - octave: 2 (number)
+              - frequency: 97.9988589954373 (number)
+              - duration: 2 (number)
+              - start_at: 8.75 (number)
+
+## WAVE [GET /music/generate/wave{?size,seed,smoke_on_the_water}]
+
+- Parameters
+  - size: `64` (optional, number) - a modifier parameter, influences the length of the finished song by a little bit
+      - Default: 10
+  - seed: `5` (optional, number)
+      - Default: 0
+  - smoke_on_the_water: true (optional, boolean) - just a little easter egg, useful for checking out the sound generation
+      - Default: false
+
+- Response 200 (audio/wav)
+
 # Data Structures
 
 ## Intro Object (object)
@@ -249,3 +453,20 @@ Generates a new dungeon.
 - grid (required, array) - Grid of all dungeon points, arranged into a graph
 
   - (Grid Point Object)
+
+## Note Object (object)
+- note (required, string) - Musical note name
+- octave (required, number) - octave of the note
+- frequency (required, number) - physical frequency of the note
+
+## Song Note Object (Note Object)
+- duration (required, number) - length of the note in musical notation (full, quarter, half etc.)
+- start_at (required, number) - start at the specified point in the song, specified in musical notation as a sum of duration passed
+
+## Song Object (object)
+- scale (required, array) - the scale pattern in halfstep jumps from the key of the scale
+  - (number)
+- key (required, Note Object) - the note that sets key of the scale and the song
+- Tempo (required, number) - the relative length of a full(1.0) duration note
+- song (required, array) - an array of notes that define the song
+  - (Song Note Object)
