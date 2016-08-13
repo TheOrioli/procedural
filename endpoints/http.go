@@ -2,17 +2,26 @@ package endpoints
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
+
+	"github.com/Aorioli/procedural/concerns/version"
 )
 
-type MessageServer struct {
-	Message string
+type descriptionServer struct {
+	Intro   string          `json:"intro"`
+	Version version.Version `json:"version"`
 }
 
-func (m MessageServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (m descriptionServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add(ContentType, "application/json")
-	fmt.Fprintf(w, `{"message":"%s"}`, m.Message)
+	json.NewEncoder(w).Encode(m)
+}
+
+func Description(intro string, v version.Version) http.Handler {
+	return descriptionServer{
+		Intro:   intro,
+		Version: v,
+	}
 }
 
 const (
