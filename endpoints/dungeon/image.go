@@ -39,14 +39,14 @@ func drawCell(cell int, min, max point.Point, im *image.NRGBA, col color.Color) 
 		return
 	}
 
-	for x := min.X; x <= max.X; x++ {
-		for y := min.Y; y <= max.Y; y++ {
+	for x := min.X; x < max.X; x++ {
+		for y := min.Y; y < max.Y; y++ {
 			im.Set(x, y, col)
 			if x == min.X {
 				im.Set(x, y, color.Black)
-			} else if x == max.X {
+			} else if x == (max.X - 1) {
 				im.Set(x, y, color.Black)
-			} else if y == max.Y {
+			} else if y == (max.Y - 1) {
 				im.Set(x, y, color.Black)
 			} else if y == min.Y {
 				im.Set(x, y, color.Black)
