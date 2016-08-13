@@ -7,6 +7,30 @@
 	],
 	"Deps": [
 		{
+			"ImportPath": "github.com/Aorioli/chopher/hasher",
+			"Rev": "6e32774a94a608189c78f155eb4e243c1bd376c5"
+		},
+		{
+			"ImportPath": "github.com/Aorioli/chopher/karplus",
+			"Rev": "6e32774a94a608189c78f155eb4e243c1bd376c5"
+		},
+		{
+			"ImportPath": "github.com/Aorioli/chopher/note",
+			"Rev": "6e32774a94a608189c78f155eb4e243c1bd376c5"
+		},
+		{
+			"ImportPath": "github.com/Aorioli/chopher/scale",
+			"Rev": "6e32774a94a608189c78f155eb4e243c1bd376c5"
+		},
+		{
+			"ImportPath": "github.com/Aorioli/chopher/song",
+			"Rev": "6e32774a94a608189c78f155eb4e243c1bd376c5"
+		},
+		{
+			"ImportPath": "github.com/Aorioli/chopher/wave",
+			"Rev": "6e32774a94a608189c78f155eb4e243c1bd376c5"
+		},
+		{
 			"ImportPath": "github.com/go-kit/kit/endpoint",
 			"Rev": "db631d00e59701187cccc1790f1b95cdb494fdd0"
 		},
