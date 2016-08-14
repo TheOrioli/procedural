@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Procedural</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js" integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <style media="screen">
+        body {
+            background-color: #fefefe;
+        }
+
+        h1 {
+            text-color: #375EAB
+        }
+
+        #title {
+            text-align: center;
+        }
+
+        #floating-box {
+            position: fixed;
+            left: 10px;
+            top: 10px;
+        }
+
+        .content-row {
+            background-color: #f5f5f5;
+            border-style: solid;
+            border-width: thin;
+            border-color: #000000;
+            margin-bottom: 1em;
+            padding: 1em;
+        }
+
+        .response-image {
+            max-width: 300px;
+            max-height: 300px;
+        }
+
+        .resp-sharing-button {
+            display: inline-block;
+            border-radius: 5px;
+            border-width: 1px;
+            border-style: solid;
+            transition: background-color 25ms ease-out, border-color 25ms ease-out, opacity 250ms ease-out;
+            margin: 0.5em;
+            padding: 0.5em 0.75em;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        }
+
+        .resp-sharing-button a {
+            text-decoration: none;
+            color: #FFF;
+            display: block;
+        }
+
+        .resp-sharing-button__icon {
+            display: inline-block;
+        }
+
+        .resp-sharing-button__icon svg {
+            width: 1em;
+            height: 1em;
+            margin-bottom: -0.1em;
+        }
+        /* Non solid icons get a stroke */
+
+        .resp-sharing-button__icon {
+            stroke: #FFF;
+            fill: none;
+        }
+        /* Solid icons get a fill */
+
+        .resp-sharing-button__icon--solid,
+        .resp-sharing-button__icon--solidcircle {
+            fill: #FFF;
+            stroke: none;
+        }
+
+        .resp-sharing-button__link {
+            text-decoration: none;
+            color: #FFF;
+        }
+
+        .resp-sharing-button--large .resp-sharing-button__icon svg {
+            padding-right: 0.4em;
+        }
+
+        .resp-sharing-button__wrapper {
+            display: inline-block;
+        }
+
+        .resp-sharing-button--twitter {
+            background-color: #55acee;
+            border-color: #55acee;
+        }
+
+        .resp-sharing-button--twitter:hover,
+        .resp-sharing-button--twitter:active {
+            background-color: #2795e9;
+            border-color: #2795e9;
+        }
+
+        .resp-sharing-button--email {
+            background-color: #444444;
+            border-color: #444444;
+        }
+
+        .resp-sharing-button--email:hover .resp-sharing-button--email:active {
+            background-color: #2B2B2B;
+            border-color: #2B2B2B;
+        }
+
+        .resp-sharing-button--reddit {
+            background-color: #5f99cf;
+            border-color: #5f99cf;
+        }
+
+        .resp-sharing-button--reddit:hover,
+        .resp-sharing-button--reddit:active {
+            background-color: #3a80c1;
+            border-color: #3a80c1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="text-center">Procedural content generation</h1>
+                <h6 class="text-center">as a service</h6>
+                <div class="col-xs-12 col-md-6">
+                    <h2 class="text-center">Help out on <a href="https://github.com/Aorioli/procedural">GitHub</a></h2>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <h2 class="text-center"><a href="http://docs.procedural.apiary.io">Read the documentation</a></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                <h5 class="text-center">
+                  <i>I want to build a rougelike, but making the basic structure of a map takes too much time.</i>
+                </h5 class="text-center">
+                <h5 class="text-center">
+                  <i>
+                    I want to make a game where you do stuff based off music, but there is no infinite supply of music anywhere.
+                  </i>
+                </h5 class="text-center">
+                <h5 class="text-center">
+                  <i>
+                    I have nothing to live for. I just want to solve mazes all day long.
+                  </i>
+                </h5 class="text-center">
+                <p>
+                    These are just some of the problems that no modern game developer faces. But still, there is a solution! Presenting
+                    <b>
+                      Procedural content generation as a service
+                    </b>, the brand new API developed by some people who didn't have anything better to do with their time.
+                </p>
+                <p>
+                    By making a couple of simple API calls, you too can spend your time doing productive things, like gameplay design, and netcode, and eating icecream, instead of spending a couple of afternoons implementing procedural generation.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="row content-row">
+          <div class="row content-header-row">
+            <div class="col-xs-12">
+              <h2>Mazes as a service</h2>
+            </div>
+          </div>
+          <div class="row content-description-row">
+            <div class="col-xs-12">
+              <p>
+                  Mazes are puzzles usually found on the backs of cereal boxes,
+                  and in old-school RPGs. They are the poor man's labyrinth, and the
+                  rich man's hallway.
+              </p>
+            </div>
+          </div>
+          <div class="row content-example-row">
+            <div class="col-xs-12 col-md-8 output-col text-center">
+              <img class="response-image" id="maze-image" src="http://procedural-prototype.herokuapp.com/maze/generate/backtrack/image?w=10&h=10&seed=0" alt="Maze image"/>
+            </div>
+            <div class="col-xs-12 col-md-4 param-col">
+              <div class="col-xs-12">
+              <h6>
+                <code>width</code>
+              </h6>
+              </div>
+              <div class="col-xs-12">
+                <input type="number" id="maze-width-input" min="0" max="50" value="10">
+              </div>
+              <div class="col-xs-12">
+              <h6>
+                <code>height</code>
+              </h6>
+              </div>
+              <div class="col-xs-12">
+                <input type="number" id="maze-height-input" min="0" max="50" value="10">
+              </div>
+
+              <div class="col-xs-12">
+              <h6>
+                <code>seed</code>
+              </h6>
+              </div>
+              <div class="col-xs-12">
+                <input type="number" id="maze-seed-input" value="0">
+              </div>
+              <div class="col-xs-12">
+              <button id="maze-refresh" type="button" class="btn btn-default">
+                Refresh
+              </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row content-row">
+          <div class="row content-header-row">
+            <div class="col-xs-12">
+              <h2>Dungeons as a service</h2>
+              <h5>Contributed by <a href="https://github.com/Meshiest/go-dungeon">Meshiest</a></h5>
+            </div>
+        </div>
+        <div class="row content-description-row">
+            <div class="col-xs-12">
+                <p>
+                    Dungeons are a staple of games, even more so when you consider that they are basically just rooms connected with hallways.
+                </p>
+                <p>
+                    If I were you, I would consider these parameters more like suggestions, than hard mathematical facts.
+                </p>
+            </div>
+        </div>
+        <div class="row content-example-row">
+            <div class="col-xs-12 col-md-8 output-col text-center">
+                <img class="response-image" id="dungeon-image" src="http://procedural-prototype.herokuapp.com/dungeon/generate/image?size=50&rooms=20&seed=0" alt="Dungeon image" />
+            </div>
+            <div class="col-xs-12 col-md-4 param-col">
+                <div class="col-xs-12">
+                    <h6>
+                <code>size</code>
+              </h6>
+                </div>
+                <div class="col-xs-12">
+                    <input type="number" id="dungeon-size-input" min="0" max="50" value="50">
+                </div>
+                <div class="col-xs-12">
+                    <h6>
+                <code>rooms</code>
+              </h6>
+                </div>
+                <div class="col-xs-12">
+                    <input type="number" id="dungeon-rooms-input" min="0" max="50" value="20">
+                </div>
+
+                <div class="col-xs-12">
+                    <h6>
+                <code>seed</code>
+              </h6>
+                </div>
+                <div class="col-xs-12">
+                    <input type="number" id="dungeon-seed-input" value="0">
+                </div>
+                <div class="col-xs-12">
+                    <button id="dungeon-refresh" type="button" class="btn btn-default">
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row content-row">
+        <div class="row content-header-row">
+            <div class="col-xs-12">
+                <h2>Music as a service</h2>
+            </div>
+        </div>
+        <div class="row content-description-row">
+            <div class="col-xs-12">
+                <p>
+                    Music is the glue of a game, it binds all the visual and gameplay elements together into a cohesive unity. This won't be anywhere near that quality, but if you're lucky you might get something good.
+                </p>
+
+                <p>
+                    Setting the seed to <code>1</code> will give a suprisingly dark sounding track.
+                </p>
+            </div>
+        </div>
+        <div class="row content-example-row">
+            <div class="col-xs-12 col-md-8 output-col text-center">
+                <audio id="music-output" controls>
+                    <source class="response-audio" id="music-output-wave" src="https://procedural-prototype.herokuapp.com/music/generate/wave?size=64&seed=5" type="audio/wave">
+                </audio>
+            </div>
+            <div class="col-xs-12 col-md-4 param-col">
+                <div class="col-xs-12">
+                    <h6>
+                <code>size</code>
+              </h6>
+                </div>
+                <div class="col-xs-12">
+                    <input type="number" id="music-size-input" min="0" max="100" value="64">
+                </div>
+                <div class="col-xs-12">
+                    <h6>
+                <code>seed</code>
+              </h6>
+                </div>
+                <div class="col-xs-12">
+                    <input type="number" id="music-seed-input" value="5">
+                </div>
+                <div class="col-xs-12">
+                    <button id="music-refresh" type="button" class="btn btn-default">
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div id="floating-box">
+        <div class="row">
+            <!-- Sharingbutton Twitter -->
+            <a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=Procedural%20generation%20service&amp;url=http%3A%2F%2Fprocedural-service.xyz&via=TheOrioli" target="_blank" aria-label="">
+                <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+                    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                        <svg version="1.1" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+                            <g>
+                                <path d="M23.444,4.834c-0.814,0.363-1.5,0.375-2.228,0.016c0.938-0.562,0.981-0.957,1.32-2.019c-0.878,0.521-1.851,0.9-2.886,1.104 C18.823,3.053,17.642,2.5,16.335,2.5c-2.51,0-4.544,2.036-4.544,4.544c0,0.356,0.04,0.703,0.117,1.036 C8.132,7.891,4.783,6.082,2.542,3.332C2.151,4.003,1.927,4.784,1.927,5.617c0,1.577,0.803,2.967,2.021,3.782 C3.203,9.375,2.503,9.171,1.891,8.831C1.89,8.85,1.89,8.868,1.89,8.888c0,2.202,1.566,4.038,3.646,4.456 c-0.666,0.181-1.368,0.209-2.053,0.079c0.579,1.804,2.257,3.118,4.245,3.155C5.783,18.102,3.372,18.737,1,18.459 C3.012,19.748,5.399,20.5,7.966,20.5c8.358,0,12.928-6.924,12.928-12.929c0-0.198-0.003-0.393-0.012-0.588 C21.769,6.343,22.835,5.746,23.444,4.834z"
+                                />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="row">
+            <!-- Sharingbutton Reddit -->
+            <a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=http%3A%2F%2Fprocedural-service.xyz" target="_blank" aria-label="">
+                <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small">
+                    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                        <svg version="1.1" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+                            <path d="M24,11.5c0-1.654-1.346-3-3-3c-0.964,0-1.863,0.476-2.422,1.241c-1.639-1.006-3.747-1.64-6.064-1.723 c0.064-1.11,0.4-3.049,1.508-3.686c0.72-0.414,1.733-0.249,3.01,0.478C17.189,6.317,18.452,7.5,20,7.5c1.654,0,3-1.346,3-3 s-1.346-3-3-3c-1.382,0-2.536,0.944-2.883,2.217C15.688,3,14.479,2.915,13.521,3.466c-1.642,0.945-1.951,3.477-2.008,4.551 C9.186,8.096,7.067,8.731,5.422,9.741C4.863,8.976,3.964,8.5,3,8.5c-1.654,0-3,1.346-3,3c0,1.319,0.836,2.443,2.047,2.844 C2.019,14.56,2,14.778,2,15c0,3.86,4.486,7,10,7s10-3.14,10-7c0-0.222-0.019-0.441-0.048-0.658C23.148,13.938,24,12.795,24,11.5z  M2.286,13.366C1.522,13.077,1,12.351,1,11.5c0-1.103,0.897-2,2-2c0.635,0,1.217,0.318,1.59,0.816 C3.488,11.17,2.683,12.211,2.286,13.366z M6,13.5c0-1.103,0.897-2,2-2s2,0.897,2,2c0,1.103-0.897,2-2,2S6,14.603,6,13.5z  M15.787,18.314c-1.063,0.612-2.407,0.949-3.787,0.949c-1.387,0-2.737-0.34-3.803-0.958c-0.239-0.139-0.321-0.444-0.182-0.683 c0.139-0.24,0.444-0.322,0.683-0.182c1.828,1.059,4.758,1.062,6.59,0.008c0.239-0.138,0.545-0.055,0.683,0.184 C16.108,17.871,16.026,18.177,15.787,18.314z M16,15.5c-1.103,0-2-0.897-2-2c0-1.103,0.897-2,2-2s2,0.897,2,2 C18,14.603,17.103,15.5,16,15.5z M21.713,13.365c-0.397-1.155-1.201-2.195-2.303-3.048C19.784,9.818,20.366,9.5,21,9.5 c1.103,0,2,0.897,2,2C23,12.335,22.468,13.073,21.713,13.365z"
+                            />
+                        </svg>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="row">
+            <!-- Sharingbutton E-Mail -->
+            <a class="resp-sharing-button__link" href="mailto:?subject=Procedural%20generation%20as%20a%20service&amp;body=http%3A%2F%2Fprocedural-service.xyz" target="_blank" aria-label="">
+                <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small">
+                    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+                        <svg version="1.1" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+                            <path d="M22,4H2C0.897,4,0,4.897,0,6v12c0,1.103,0.897,2,2,2h20c1.103,0,2-0.897,2-2V6C24,4.897,23.103,4,22,4z M7.248,14.434 l-3.5,2C3.67,16.479,3.584,16.5,3.5,16.5c-0.174,0-0.342-0.09-0.435-0.252c-0.137-0.239-0.054-0.545,0.186-0.682l3.5-2 c0.24-0.137,0.545-0.054,0.682,0.186C7.571,13.992,7.488,14.297,7.248,14.434z M12,14.5c-0.094,0-0.189-0.026-0.271-0.08l-8.5-5.5 C2.997,8.77,2.93,8.46,3.081,8.229c0.15-0.23,0.459-0.298,0.691-0.147L12,13.405l8.229-5.324c0.232-0.15,0.542-0.084,0.691,0.147 c0.15,0.232,0.083,0.542-0.148,0.691l-8.5,5.5C12.189,14.474,12.095,14.5,12,14.5z M20.934,16.248 C20.842,16.41,20.673,16.5,20.5,16.5c-0.084,0-0.169-0.021-0.248-0.065l-3.5-2c-0.24-0.137-0.323-0.442-0.186-0.682 s0.443-0.322,0.682-0.186l3.5,2C20.988,15.703,21.071,16.009,20.934,16.248z"
+                            />
+                        </svg>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $("#maze-refresh").click(function() {
+        var w = $("#maze-width-input")[0].value;
+        var h = $("#maze-height-input")[0].value;
+        var seed = $("#maze-seed-input")[0].value;
+        var url = "http://procedural-prototype.herokuapp.com/maze/generate/backtrack/image?" +
+            "w=" + w +
+            "&h=" + h +
+            "&seed=" + seed;
+        $("#maze-image")[0].src = url;
+    })
+
+    $("#dungeon-refresh").click(function() {
+        var size = $("#dungeon-size-input")[0].value;
+        var rooms = $("#dungeon-rooms-input")[0].value;
+        var seed = $("#dungeon-seed-input")[0].value;
+        var url = "http://procedural-prototype.herokuapp.com/dungeon/generate/image?" +
+            "size=" + size +
+            "&rooms=" + rooms +
+            "&seed=" + seed;
+        $("#dungeon-image")[0].src = url;
+    })
+
+    $("#music-refresh").click(function() {
+        var size = $("#music-size-input")[0].value;
+        var seed = $("#music-seed-input")[0].value;
+        var url = "http://procedural-prototype.herokuapp.com/music/generate/wave?" +
+            "size=" + size +
+            "&seed=" + seed;
+        $("#music-output-wave")[0].src = url;
+        $("#music-output")[0].pause();
+        $("#music-output")[0].load();
+        $("#music-output")[0].oncanplaythrough = $("#music-output")[0].play();
+    })
+</script>
+</html>
