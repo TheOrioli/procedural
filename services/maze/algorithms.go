@@ -1,7 +1,6 @@
 package maze
 
-type backtrack struct {
-}
+type backtrack struct{}
 
 func (b backtrack) Choose(length int) int {
 	return length - 1

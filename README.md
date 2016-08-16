@@ -1,4 +1,4 @@
-# Procedural generation as a service
+# Procedural generation as a service [![Build Status](https://travis-ci.org/Aorioli/procedural.svg?branch=master)](https://travis-ci.org/Aorioli/procedural)
 
 Online documentation available [here](http://docs.procedural.apiary.io)
 
