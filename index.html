@@ -200,7 +200,7 @@
               </h6>
               </div>
               <div class="col-xs-12">
-                <input type="number" id="maze-width-input" min="0" max="50" value="10">
+                <input type="number" id="maze-width-input" min="1" max="50" value="10">
               </div>
               <div class="col-xs-12">
               <h6>
@@ -208,7 +208,7 @@
               </h6>
               </div>
               <div class="col-xs-12">
-                <input type="number" id="maze-height-input" min="0" max="50" value="10">
+                <input type="number" id="maze-height-input" min="1" max="50" value="10">
               </div>
 
               <div class="col-xs-12">
@@ -256,7 +256,7 @@
               </h6>
                 </div>
                 <div class="col-xs-12">
-                    <input type="number" id="dungeon-size-input" min="0" max="50" value="50">
+                    <input type="number" id="dungeon-size-input" min="10" max="50" value="50">
                 </div>
                 <div class="col-xs-12">
                     <h6>
@@ -264,7 +264,7 @@
               </h6>
                 </div>
                 <div class="col-xs-12">
-                    <input type="number" id="dungeon-rooms-input" min="0" max="50" value="20">
+                    <input type="number" id="dungeon-rooms-input" min="5" max="50" value="20">
                 </div>
 
                 <div class="col-xs-12">
@@ -392,7 +392,15 @@
     var endpoint = "https://procedural-service.herokuapp.com"
     $("#maze-refresh").click(function() {
         var w = $("#maze-width-input")[0].value;
+        if (w <= 0 || w > 50) {
+          return
+        }
+
         var h = $("#maze-height-input")[0].value;
+        if (h <= 0 || h > 50) {
+          return
+        }
+
         var seed = $("#maze-seed-input")[0].value;
         var url = endpoint + "/maze/generate/backtrack/image?" +
             "w=" + w +
@@ -403,7 +411,15 @@
 
     $("#dungeon-refresh").click(function() {
         var size = $("#dungeon-size-input")[0].value;
+        if (size < 10 || size > 50) {
+          return
+        }
+
         var rooms = $("#dungeon-rooms-input")[0].value;
+        if (rooms < 5 || rooms > 50) {
+          return
+        }
+
         var seed = $("#dungeon-seed-input")[0].value;
         var url = endpoint + "/dungeon/generate/image?" +
             "size=" + size +
@@ -414,6 +430,10 @@
 
     $("#music-refresh").click(function() {
         var size = $("#music-size-input")[0].value;
+        if (size < 0 || size > 100) {
+          return
+        }
+
         var seed = $("#music-seed-input")[0].value;
         var url = endpoint + "/music/generate/wave?" +
             "size=" + size +
