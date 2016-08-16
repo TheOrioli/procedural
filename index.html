@@ -191,7 +191,7 @@
           </div>
           <div class="row content-example-row">
             <div class="col-xs-12 col-md-8 output-col text-center">
-              <img class="response-image" id="maze-image" src="http://procedural-prototype.herokuapp.com/maze/generate/backtrack/image?w=10&h=10&seed=0" alt="Maze image"/>
+              <img class="response-image" id="maze-image" src="https://procedural-service.herokuapp.com/maze/generate/backtrack/image?w=10&h=10&seed=0" alt="Maze image"/>
             </div>
             <div class="col-xs-12 col-md-4 param-col">
               <div class="col-xs-12">
@@ -247,7 +247,7 @@
         </div>
         <div class="row content-example-row">
             <div class="col-xs-12 col-md-8 output-col text-center">
-                <img class="response-image" id="dungeon-image" src="http://procedural-prototype.herokuapp.com/dungeon/generate/image?size=50&rooms=20&seed=0" alt="Dungeon image" />
+                <img class="response-image" id="dungeon-image" src="https://procedural-service.herokuapp.com/dungeon/generate/image?size=50&rooms=20&seed=0" alt="Dungeon image" />
             </div>
             <div class="col-xs-12 col-md-4 param-col">
                 <div class="col-xs-12">
@@ -304,7 +304,7 @@
         <div class="row content-example-row">
             <div class="col-xs-12 col-md-8 output-col text-center">
                 <audio id="music-output" controls>
-                    <source class="response-audio" id="music-output-wave" src="https://procedural-prototype.herokuapp.com/music/generate/wave?size=64&seed=5" type="audio/wave">
+                    <source class="response-audio" id="music-output-wave" src="https://procedural-service.herokuapp.com/music/generate/wave?size=64&seed=5" type="audio/wave">
                 </audio>
             </div>
             <div class="col-xs-12 col-md-4 param-col">
@@ -389,11 +389,12 @@
     </a>
 </body>
 <script type="text/javascript">
+    var endpoint = "https://procedural-service.herokuapp.com"
     $("#maze-refresh").click(function() {
         var w = $("#maze-width-input")[0].value;
         var h = $("#maze-height-input")[0].value;
         var seed = $("#maze-seed-input")[0].value;
-        var url = "http://procedural-prototype.herokuapp.com/maze/generate/backtrack/image?" +
+        var url = endpoint + "/maze/generate/backtrack/image?" +
             "w=" + w +
             "&h=" + h +
             "&seed=" + seed;
@@ -404,7 +405,7 @@
         var size = $("#dungeon-size-input")[0].value;
         var rooms = $("#dungeon-rooms-input")[0].value;
         var seed = $("#dungeon-seed-input")[0].value;
-        var url = "http://procedural-prototype.herokuapp.com/dungeon/generate/image?" +
+        var url = endpoint + "/dungeon/generate/image?" +
             "size=" + size +
             "&rooms=" + rooms +
             "&seed=" + seed;
@@ -414,7 +415,7 @@
     $("#music-refresh").click(function() {
         var size = $("#music-size-input")[0].value;
         var seed = $("#music-seed-input")[0].value;
-        var url = "http://procedural-prototype.herokuapp.com/music/generate/wave?" +
+        var url = endpoint + "/music/generate/wave?" +
             "size=" + size +
             "&seed=" + seed;
         $("#music-output-wave")[0].src = url;
